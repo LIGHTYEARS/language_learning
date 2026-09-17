@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { VocabCard } from '../types'
-import { clozeMatches, parseTargetChunks } from '../lib/chunks'
+import { clozeMatches, parseTargetChunks, renderClozeVisual } from '../lib/chunks'
 import styles from './Steps.module.css'
 
 interface Props {
@@ -29,7 +29,14 @@ export function ClozeStep({ card, onNext }: Props) {
     <section className={styles.panel}>
       <div className={styles.kicker}>填空 · Cloze</div>
       <h2 className={styles.lemma}>{card.lemma}</h2>
-      <p className={styles.clozeText}>{card.cloze}</p>
+      <p className={styles.cueInline}>
+        <strong>场景：</strong>
+        {card.title_cue}
+      </p>
+      <div
+        className={styles.clozeVisual}
+        dangerouslySetInnerHTML={{ __html: renderClozeVisual(card.cloze) }}
+      />
       <label className={styles.field}>
         <span>输入目标搭配（多个空可用 ; 分隔）</span>
         <input
@@ -45,7 +52,7 @@ export function ClozeStep({ card, onNext }: Props) {
               else if (checked || revealed) onNext()
             }
           }}
-          placeholder="e.g. time-bounded; bounded by …"
+          placeholder={targets[0] ? `e.g. ${targets[0]}` : 'target chunk'}
           autoFocus
         />
       </label>

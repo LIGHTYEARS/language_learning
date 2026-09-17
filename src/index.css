@@ -1,14 +1,18 @@
 :root {
-  --bg: #f4f6fa;
-  --surface: #ffffff;
-  --text: #1a2233;
-  --muted: #6b7588;
-  --border: #dde3ee;
-  --accent: #3b6fd8;
-  --accent-soft: #e8f0ff;
-  font-family: 'Segoe UI', system-ui, -apple-system, 'PingFang SC', 'Noto Sans SC',
-    sans-serif;
-  line-height: 1.5;
+  --bg: #f7f3ee;
+  --surface: #fffdf9;
+  --text: #2a2218;
+  --muted: #7a6e60;
+  --border: #e6ddd2;
+  --accent: #c45c2a;
+  --accent-soft: #fdeee4;
+  --warm: #a65d32;
+  --scene: #1f4a3a;
+  --scene-bg: #eef6f1;
+  font-family:
+    'Iowan Old Style', 'Palatino Linotype', Palatino, 'Songti SC', 'Noto Serif SC',
+    'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.55;
   font-weight: 400;
   color: var(--text);
   background: var(--bg);
@@ -27,8 +31,8 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(1200px 500px at 10% -10%, #dfe9ff 0%, transparent 55%),
-    radial-gradient(900px 400px at 100% 0%, #fff0e0 0%, transparent 50%),
+    radial-gradient(900px 420px at 0% -5%, #ffe8d4 0%, transparent 55%),
+    radial-gradient(700px 380px at 100% 0%, #e8f0ea 0%, transparent 50%),
     var(--bg);
 }
 
@@ -37,6 +41,7 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }

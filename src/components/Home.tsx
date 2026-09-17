@@ -8,11 +8,12 @@ interface Props {
   onFilter: (f: FilterMode) => void
   today: string
   dueCount: number
-  selected: Set<string>
-  onToggle: (slug: string) => void
-  onSelectFiltered: () => void
-  onClearSelection: () => void
-  onStudy: () => void
+  totalCount: number
+  onStartToday: () => void
+  onOpenStudio: (slug: string) => void
+  onAddToRound: (slug: string) => void
+  roundCount: number
+  onStudyRound: () => void
   onExport: () => void
   onAdmin: () => void
   apiOnline: boolean
@@ -31,11 +32,12 @@ export function Home({
   onFilter,
   today,
   dueCount,
-  selected,
-  onToggle,
-  onSelectFiltered,
-  onClearSelection,
-  onStudy,
+  totalCount,
+  onStartToday,
+  onOpenStudio,
+  onAddToRound,
+  roundCount,
+  onStudyRound,
   onExport,
   onAdmin,
   apiOnline,
@@ -43,85 +45,91 @@ export function Home({
 }: Props) {
   return (
     <div className={styles.wrap}>
-      <header className={styles.header}>
-        <div>
-          <h1 className={styles.title}>职场词汇 · FSRS</h1>
+      <header className={styles.hero}>
+        <div className={styles.heroText}>
+          <p className={styles.kicker}>职场英语 · 冻结场景</p>
+          <h1 className={styles.title}>今日到期 {dueCount}</h1>
           <p className={styles.sub}>
-            今日（上海）{today} · 到期 {dueCount} / 共 {cards.length} 张
-            {' · '}
-            {usingApi && apiOnline ? 'API' : '本地'}
+            {today} · 词库 {totalCount} · {usingApi && apiOnline ? '云端 FSRS' : '本地备份'}
           </p>
         </div>
+        <button
+          type="button"
+          className={styles.cta}
+          onClick={onStartToday}
+          disabled={dueCount === 0 && filter !== 'new'}
+        >
+          开始今日学习
+        </button>
+      </header>
+
+      <div className={styles.toolbar}>
+        <div className={styles.filters}>
+          {FILTERS.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              className={filter === f.id ? styles.chipActive : styles.chip}
+              onClick={() => onFilter(f.id)}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
         <div className={styles.actions}>
+          {roundCount > 0 && (
+            <button type="button" className={styles.primarySm} onClick={onStudyRound}>
+              学本轮 ({roundCount})
+            </button>
+          )}
           <button type="button" className={styles.ghost} onClick={onAdmin}>
             Admin
           </button>
           <button type="button" className={styles.ghost} onClick={onExport}>
-            导出 cards.json
-          </button>
-          <button
-            type="button"
-            className={styles.primary}
-            disabled={selected.size === 0}
-            onClick={onStudy}
-          >
-            开始学习 ({selected.size})
+            导出
           </button>
         </div>
-      </header>
-
-      <div className={styles.filters}>
-        {FILTERS.map((f) => (
-          <button
-            key={f.id}
-            type="button"
-            className={filter === f.id ? styles.chipActive : styles.chip}
-            onClick={() => onFilter(f.id)}
-          >
-            {f.label}
-          </button>
-        ))}
-        <button type="button" className={styles.linkBtn} onClick={onSelectFiltered}>
-          全选当前
-        </button>
-        <button type="button" className={styles.linkBtn} onClick={onClearSelection}>
-          清空
-        </button>
       </div>
 
       <ul className={styles.list}>
         {cards.map((c) => {
           const due = isDue(c.due, today)
-          const checked = selected.has(c.slug)
           return (
-            <li
-              key={c.slug}
-              className={`${styles.card} ${due ? styles.due : ''} ${checked ? styles.selected : ''}`}
-            >
-              <label className={styles.row}>
-                <input
-                  type="checkbox"
-                  checked={checked}
-                  onChange={() => onToggle(c.slug)}
-                />
+            <li key={c.slug} className={`${styles.card} ${due ? styles.due : ''}`}>
+              <button
+                type="button"
+                className={styles.row}
+                onClick={() => onOpenStudio(c.slug)}
+              >
                 <div className={styles.meta}>
                   <div className={styles.lemmaRow}>
                     <span className={styles.lemma}>{c.lemma}</span>
                     <span className={styles.ipa}>{c.ipa}</span>
                     {due && <span className={styles.badge}>到期</span>}
-                    <span className={styles.status}>{c.status}</span>
                   </div>
                   <div className={styles.cue}>{c.title_cue}</div>
-                  <div className={styles.gloss}>
-                    {c.gloss_zh} · due {c.due} · S={c.stability}
-                  </div>
+                  <div className={styles.gloss}>{c.gloss_zh}</div>
                 </div>
-              </label>
+                <span className={styles.chevron} aria-hidden>
+                  →
+                </span>
+              </button>
+              <button
+                type="button"
+                className={styles.addRound}
+                title="加入本轮"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onAddToRound(c.slug)
+                }}
+              >
+                +
+              </button>
             </li>
           )
         })}
         {cards.length === 0 && (
-          <li className={styles.empty}>当前筛选下没有卡片。</li>
+          <li className={styles.empty}>当前筛选下没有卡片。试试「全部」或「新词」。</li>
         )}
       </ul>
     </div>

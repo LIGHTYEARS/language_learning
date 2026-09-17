@@ -2,10 +2,12 @@ import { useMemo, useState } from 'react'
 import { Admin } from './components/Admin'
 import { Home } from './components/Home'
 import { StudySession } from './components/StudySession'
+import { WordStudio } from './components/WordStudio'
 import { useCards } from './hooks/useCards'
-import type { FilterMode, Rating, VocabCard } from './types'
+import { isDue } from './lib/dates'
+import type { AppView, FilterMode, Rating, VocabCard } from './types'
 
-type View = 'home' | 'study' | 'admin'
+const TODAY_CAP = 6
 
 export default function App() {
   const {
@@ -21,16 +23,46 @@ export default function App() {
     usingApi,
     reloadFromApi,
   } = useCards()
-  const [view, setView] = useState<View>('home')
+  const [view, setView] = useState<AppView>('home')
   const [filter, setFilter] = useState<FilterMode>('due')
-  const [selected, setSelected] = useState<Set<string>>(new Set())
   const [queue, setQueue] = useState<VocabCard[]>([])
+  const [studioSlug, setStudioSlug] = useState<string | null>(null)
+  const [round, setRound] = useState<Set<string>>(new Set())
+  const [fromStudio, setFromStudio] = useState(false)
 
   const filtered = useMemo(() => filterCards(filter), [filterCards, filter])
-  const displayCards = filtered
+  const studioCard = useMemo(
+    () => (studioSlug ? cards.find((c) => c.slug === studioSlug) ?? null : null),
+    [cards, studioSlug],
+  )
 
-  const toggle = (slug: string) => {
-    setSelected((prev) => {
+  const startQueue = (q: VocabCard[], studio = false) => {
+    if (q.length === 0) return
+    setQueue(q)
+    setFromStudio(studio)
+    setView('study')
+  }
+
+  const startToday = () => {
+    const due = cards.filter((c) => isDue(c.due, today)).slice(0, TODAY_CAP)
+    if (due.length > 0) {
+      startQueue(due)
+      return
+    }
+    // No due: offer new cards up to cap
+    const news = cards
+      .filter((c) => c.status === 'new' || c.stability === 0)
+      .slice(0, TODAY_CAP)
+    startQueue(news.length ? news : cards.slice(0, TODAY_CAP))
+  }
+
+  const openStudio = (slug: string) => {
+    setStudioSlug(slug)
+    setView('studio')
+  }
+
+  const addToRound = (slug: string) => {
+    setRound((prev) => {
       const next = new Set(prev)
       if (next.has(slug)) next.delete(slug)
       else next.add(slug)
@@ -38,17 +70,9 @@ export default function App() {
     })
   }
 
-  const selectFiltered = () => {
-    setSelected(new Set(displayCards.map((c) => c.slug)))
-  }
-
-  const clearSelection = () => setSelected(new Set())
-
-  const startStudy = () => {
-    const q = cards.filter((c) => selected.has(c.slug))
-    if (q.length === 0) return
-    setQueue(q)
-    setView('study')
+  const studyRound = () => {
+    const q = cards.filter((c) => round.has(c.slug))
+    startQueue(q)
   }
 
   const onRate = (slug: string, rating: Rating) => {
@@ -79,25 +103,40 @@ export default function App() {
     return (
       <StudySession
         queue={queue}
-        allCards={cards}
         onRate={onRate}
-        onExit={() => setView('home')}
+        fromStudio={fromStudio}
+        onExit={() => {
+          setView(fromStudio && studioSlug ? 'studio' : 'home')
+          setFromStudio(false)
+        }}
+      />
+    )
+  }
+
+  if (view === 'studio' && studioCard) {
+    return (
+      <WordStudio
+        card={studioCard}
+        onBack={() => setView('home')}
+        onPractice={() => startQueue([studioCard], true)}
+        onAddToRound={() => addToRound(studioCard.slug)}
       />
     )
   }
 
   return (
     <Home
-      cards={displayCards}
+      cards={filtered}
       filter={filter}
       onFilter={setFilter}
       today={today}
       dueCount={dueCount}
-      selected={selected}
-      onToggle={toggle}
-      onSelectFiltered={selectFiltered}
-      onClearSelection={clearSelection}
-      onStudy={startStudy}
+      totalCount={cards.length}
+      onStartToday={startToday}
+      onOpenStudio={openStudio}
+      onAddToRound={addToRound}
+      roundCount={round.size}
+      onStudyRound={studyRound}
       onExport={exportMerged}
       onAdmin={() => setView('admin')}
       apiOnline={apiOnline}

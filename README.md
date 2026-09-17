@@ -28,14 +28,17 @@ Keep the **home scene frozen** — do not nightly-reskin sentences; FSRS schedul
 
 ## Pedagogy
 
+See `vocab/LEARNING_FACE.md` (canonical learning-face v2).
+
 | Piece | Role |
 | --- | --- |
 | **Frozen home scene** | One stable workplace micro-story per lemma; bolded chunks stay constant |
-| **Target chunks** | Collocations you actually produce (`a durable fix`, not bare lemma) |
-| **Teach → Cloze → Chunk check → Rate** | Encode meaning, retrieve into blanks, discriminate chunks, then schedule |
-| **FSRS lite** | D1 `fsrs_state` when API is up; else `localStorage` key `ll-fsrs-v1` (offline fallback) |
+| **Target chunks** | Collocations you produce (`a durable fix`, not bare lemma); grade on chunk + register |
+| **Teach (new)** | Full face: IPA → etymology → gloss → chunks → USE/AVOID → scene → Why → cloze → rewrite → rate |
+| **Review (due)** | Cue-fade ladder: CN reopen → title cue produce → Why → same-scene upgrade → rate |
+| **FSRS lite** | D1 `fsrs_state` when API is up; else `localStorage` `ll-fsrs-v1` |
 
-**No nightly reskins.** Changing the scene every day defeats spaced retrieval of the same form.
+**Hard bans:** lemma↔Chinese MCQ and synonym-pick chunk MCQ are not the main path. **No nightly reskins.**
 
 ### Rating rules (Asia/Shanghai calendar)
 

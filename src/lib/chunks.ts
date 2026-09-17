@@ -20,47 +20,29 @@ export function renderBoldMarkdown(text: string): string {
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
 }
 
-/** Build 2–3 options: real target chunk(s) + distractors from other cards. */
-export function buildChunkOptions(
-  card: VocabCard,
-  allCards: VocabCard[],
-  count = 3,
-): string[] {
-  const correct = parseTargetChunks(card.target_chunks)
-  const primary = correct[0] ?? card.lemma
-  const distractors: string[] = []
-  const pool = allCards
-    .filter((c) => c.slug !== card.slug)
-    .flatMap((c) => parseTargetChunks(c.target_chunks))
-    .filter((ch) => ch && ch !== primary && !correct.includes(ch))
-
-  // shuffle pool
-  const shuffled = [...pool].sort(() => Math.random() - 0.5)
-  for (const d of shuffled) {
-    if (distractors.length >= count - 1) break
-    if (!distractors.includes(d)) distractors.push(d)
-  }
-
-  // fallback lemmas if not enough
-  if (distractors.length < count - 1) {
-    for (const c of allCards) {
-      if (c.slug === card.slug) continue
-      if (!distractors.includes(c.lemma) && c.lemma !== primary) {
-        distractors.push(c.lemma)
-      }
-      if (distractors.length >= count - 1) break
-    }
-  }
-
-  const options = [primary, ...distractors.slice(0, count - 1)]
-  return options.sort(() => Math.random() - 0.5)
+/** Soft-match: user text contains primary target chunk (never block progress). */
+export function containsPrimaryChunk(userInput: string, targets: string[]): boolean {
+  const u = normalizeAnswer(userInput)
+  if (!u || !targets.length) return false
+  return targets.some((t) => {
+    const n = normalizeAnswer(t).replace(/…|\.{3}/g, '').trim()
+    return n.length >= 4 && u.includes(n)
+  })
 }
 
-/** Normalize user cloze answer for loose compare. */
+/** Visual cloze: wrap ______ blanks for styling. */
+export function renderClozeVisual(cloze: string): string {
+  const escaped = cloze
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+  return escaped.replace(/_{3,}/g, '<span class="blank">______</span>')
+}
+
 export function normalizeAnswer(s: string): string {
   return s
     .toLowerCase()
-    .replace(/[`*_]/g, '')
+    .replace(/[`*_']/g, '')
     .replace(/\s+/g, ' ')
     .trim()
 }
@@ -68,11 +50,18 @@ export function normalizeAnswer(s: string): string {
 export function clozeMatches(userInput: string, targets: string[]): boolean {
   const u = normalizeAnswer(userInput)
   if (!u) return false
-  // allow semicolon-separated multi-blank answers
   const parts = u.split(/[;；,，]/).map((p) => p.trim()).filter(Boolean)
   const norms = targets.map(normalizeAnswer)
   if (parts.length >= 2) {
     return parts.every((p) => norms.some((t) => t.includes(p) || p.includes(t)))
   }
   return norms.some((t) => t === u || t.includes(u) || u.includes(t))
+}
+
+/**
+ * LEARNING_FACE: full Teach face for new / low-stability;
+ * Review uses cue-fade ladder instead.
+ */
+export function isTeachMode(card: VocabCard): boolean {
+  return card.status === 'new' || (card.stability ?? 0) < 1
 }
