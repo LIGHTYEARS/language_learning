@@ -1,6 +1,6 @@
 # Language Learning — Workplace Vocab (FSRS)
 
-Interactive English vocabulary app for frozen workplace “home scenes” + target chunks, with a lightweight FSRS scheduler persisted in `localStorage`.
+Interactive English vocabulary app for frozen workplace “home scenes” + target chunks, with a lightweight FSRS scheduler. Canonical state lives in **Cloudflare D1** when the Worker API is available; `localStorage` is offline fallback only.
 
 ## Quick start
 
@@ -33,7 +33,7 @@ Keep the **home scene frozen** — do not nightly-reskin sentences; FSRS schedul
 | **Frozen home scene** | One stable workplace micro-story per lemma; bolded chunks stay constant |
 | **Target chunks** | Collocations you actually produce (`a durable fix`, not bare lemma) |
 | **Teach → Cloze → Chunk check → Rate** | Encode meaning, retrieve into blanks, discriminate chunks, then schedule |
-| **FSRS lite** | `localStorage` key `ll-fsrs-v1`: per-slug `{ due, stability, difficulty, status, last_reviewed }` |
+| **FSRS lite** | D1 `fsrs_state` when API is up; else `localStorage` key `ll-fsrs-v1` (offline fallback) |
 
 **No nightly reskins.** Changing the scene every day defeats spaced retrieval of the same form.
 
@@ -50,6 +50,77 @@ Export merges FSRS fields back into a downloadable `cards.json`.
 
 - **Enter** — advance teach / after cloze·chunk when ready
 - **1 / 2 / 3 / 4** — Again / Hard / Good / Easy on the rate step
+
+
+
+## Cloudflare (Free tier only)
+
+Deploys as a single **Worker** that serves the Vite `dist/` assets and `/api/*` against **D1**.  
+**Do not enable Workers Paid, Durable Objects, or paid add-ons** — this project is designed for the Free plan.
+
+### 1. Create D1 + config
+
+```bash
+npx wrangler d1 create language-learning-db
+# Paste database_id into wrangler.jsonc → d1_databases[0].database_id
+```
+
+### 2. Secrets (never commit)
+
+```bash
+npx wrangler secret put ADMIN_SECRET
+# Used for: POST /api/review, POST /api/admin/seed, GET /api/admin/stats
+# Header: x-admin-secret: <secret>   (or Authorization: Bearer <secret>)
+```
+
+Optional local file (gitignored): `.dev.vars`
+
+```
+ADMIN_SECRET=dev-secret
+```
+
+### 3. Migrate + deploy
+
+```bash
+npm install
+npm run build
+npm run d1:migrate:remote   # or: npx wrangler d1 migrations apply language-learning-db --remote
+npx wrangler deploy         # or: npm run deploy
+```
+
+After deploy, open Admin in the app → paste secret → **Seed from vocab/cards.json**.
+
+### 4. Frontend API base
+
+| Mode | Setting |
+| --- | --- |
+| Same-origin (recommended) | leave `VITE_API_BASE` unset — browser calls `/api/*` |
+| Split / local Vite | `.env.local`: `VITE_API_BASE=https://<worker>.workers.dev` |
+
+### Sample curls
+
+```bash
+BASE=https://language-learning.<account>.workers.dev
+SECRET=your-admin-secret
+
+curl -s "$BASE/api/health"
+curl -s "$BASE/api/due?date=2026-09-17"
+curl -s "$BASE/api/card/bounded"
+curl -s -X POST "$BASE/api/admin/seed" -H "x-admin-secret: $SECRET"
+curl -s "$BASE/api/admin/stats" -H "x-admin-secret: $SECRET"
+curl -s -X POST "$BASE/api/review" \
+  -H "content-type: application/json" \
+  -H "x-admin-secret: $SECRET" \
+  -d '{"lemma":"bounded","home_scene_id":"scope-spike-ticket","rating":"good"}'
+```
+
+### Free-tier checklist
+
+- ✅ Workers + static assets + D1 only  
+- ❌ No Durable Objects  
+- ❌ No Workers Paid / Queues / Hyperdrive / R2 paid features required  
+
+Local API + assets: `npm run cf:dev` (after `npm run build`).
 
 ## License
 
