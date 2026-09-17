@@ -23,3 +23,5 @@ Batch 2026-09-17 source: https://x.com/0xwhrrari/status/2095497109524934750 (X A
 | supplemental | supplemental | new | rfc-appendix-links | 2026-09-17 | 0 | 5.0 | 2026-09-17 | |  |
 | inspect | inspect | new | latency-spike-debug | 2026-09-17 | 0 | 5.0 | 2026-09-17 | |  |
 | magnify | magnify | new | risk-review-slide | 2026-09-17 | 0 | 5.0 | 2026-09-17 | |  |
+| superseded | superseded | new | api-v1-docs-archive | 2026-09-17 | 0 | 5.0 | 2026-09-17 | | |
+| stale | stale | new | stale-branch-pr-review | 2026-09-17 | 0 | 5.0 | 2026-09-17 | | |

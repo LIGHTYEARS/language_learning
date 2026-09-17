@@ -22,6 +22,10 @@ FSRS reviews bind **word + scene_id**. Do not invent nightly reskins. Cue fade i
 | inspect | latency-spike-debug | `pager · p99 spike` | Pager for p99 latency. Before changing code, you inspect the logs / inspect … for … the culprit in traces. | `inspect the logs`; `inspect … for …` |
 | magnify | risk-review-slide | `risk review · tiny bug` | Risk review before launch. A small edge-case bug on a hot path would magnify the risk / magnify a timeout into a region outage. | `magnify the risk`; `magnify … into …` |
 
+| superseded | api-v1-docs-archive | `docs · v1 still linked?` | API docs review: v1 design note still linked as current. Mark this doc as superseded; it was superseded by the GA contract and should move to Archive. | `superseded by …`; `this doc is superseded` |
+
+| stale | stale-branch-pr-review | `PR · branch behind main` | PR review: branch is far behind main, so preview risks stale data. Ask for rebase — this is a stale branch. | `stale data`; `a stale branch` |
+
 ## Review ladder (per due item)
 1. Chinese reopen — who / goal / risk
 2. Bare — title cue only → sentence with target chunk
