@@ -1,0 +1,79 @@
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.back {
+  font: inherit;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+}
+
+.back:hover {
+  color: var(--accent);
+}
+
+.progress {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.steps {
+  margin-left: auto;
+  display: flex;
+  gap: 0.35rem;
+}
+
+.dot,
+.dotActive,
+.dotDone {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.dotActive {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+.dotDone {
+  background: #7cb87c;
+}
+
+.doneCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.doneCard h2 {
+  margin-top: 0;
+}
+
+.primary {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem 1.2rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
