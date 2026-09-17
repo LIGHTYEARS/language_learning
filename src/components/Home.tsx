@@ -14,6 +14,9 @@ interface Props {
   onClearSelection: () => void
   onStudy: () => void
   onExport: () => void
+  onAdmin: () => void
+  apiOnline: boolean
+  usingApi: boolean
 }
 
 const FILTERS: { id: FilterMode; label: string }[] = [
@@ -34,6 +37,9 @@ export function Home({
   onClearSelection,
   onStudy,
   onExport,
+  onAdmin,
+  apiOnline,
+  usingApi,
 }: Props) {
   return (
     <div className={styles.wrap}>
@@ -42,9 +48,14 @@ export function Home({
           <h1 className={styles.title}>职场词汇 · FSRS</h1>
           <p className={styles.sub}>
             今日（上海）{today} · 到期 {dueCount} / 共 {cards.length} 张
+            {' · '}
+            {usingApi && apiOnline ? 'API' : '本地'}
           </p>
         </div>
         <div className={styles.actions}>
+          <button type="button" className={styles.ghost} onClick={onAdmin}>
+            Admin
+          </button>
           <button type="button" className={styles.ghost} onClick={onExport}>
             导出 cards.json
           </button>
