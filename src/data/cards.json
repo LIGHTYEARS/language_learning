@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updated": "2026-09-17",
+  "version": 2,
+  "updated": "2026-09-18",
   "cards": [
     {
       "slug": "bounded",
@@ -23,7 +23,10 @@
       "avoid": "*have limit spike*；*limited time research* 乱套；别把「有时限」拼成 *have time bound*",
       "article": "*bounded task/role/job*",
       "home_scene": "Research spike ticket keeps growing. You mark the investigation as **time-bounded** — two days, then a write-up — and state the work is **bounded by** the auth path only, not the whole billing surface.",
-      "cloze": "Research spike ticket keeps growing. You mark the investigation as ______ — two days, then a write-up — and state the work is ______ the auth path only, not the whole billing surface."
+      "cloze": "Research spike ticket keeps growing. You mark the investigation as ______ — two days, then a write-up — and state the work is ______ the auth path only, not the whole billing surface.",
+      "rewrite_prompt": "中式弱句（spike 工单）：「这个调研有时间限制，只能做两天，而且范围只限 auth。」→ 用 time-bounded / bounded by … 改写成职场英文。",
+      "rewrite_answer": "Mark this spike as time-bounded — two days, then a write-up. The work is bounded by the auth path only, not the whole billing surface.",
+      "pitfalls": "*bounded by X* = 上限是 X；别写成 *bound of X*；*time-bounded* 比 *has a time limit* 更像工单/spike 用语"
     },
     {
       "slug": "distinction",
@@ -46,7 +49,10 @@
       "avoid": "*make difference between*；*a big different*；别把「区分」拼成 *do distinction*",
       "article": "*a small distinction*; *that distinction matters*",
       "home_scene": "Marketing/support copy blurs beta and GA entitlements. You force the room to **make a distinction between** beta limits **and** GA rights so support doesn’t overpromise. **A key distinction**: beta users get early access, not SLA-backed uptime.",
-      "cloze": "Marketing/support copy blurs beta and GA entitlements. You force the room to ______ beta limits ______ GA rights so support doesn’t overpromise. ______: beta users get early access, not SLA-backed uptime."
+      "cloze": "Marketing/support copy blurs beta and GA entitlements. You force the room to ______ beta limits ______ GA rights so support doesn’t overpromise. ______: beta users get early access, not SLA-backed uptime.",
+      "rewrite_prompt": "中式弱句：「我们要分清楚 beta 限制和 GA 权利，这是一个关键差别。」→ 用 make a distinction between / a key distinction 改写。",
+      "rewrite_answer": "We need to make a distinction between beta limits and GA rights. A key distinction: beta users get early access, not SLA-backed uptime.",
+      "pitfalls": "固定说 *make/draw a distinction between A and B*，不要 *make difference between*；与 *nuance*（细微差别）相比，*distinction* 更强调「必须划清的界限」"
     },
     {
       "slug": "durable",
@@ -69,7 +75,10 @@
       "avoid": "*long-time fix*；*strong storage*；别把「持久修复」拼成 *forever patch*",
       "article": "*durable context*; *durable infrastructure*",
       "home_scene": "Architecture review of a flaky queue fix. Someone proposes another temporary patch. You push for **a durable fix**, not another band-aid, and argue we should also pick **durable storage** so the queue state survives restarts.",
-      "cloze": "Architecture review of a flaky queue fix. Someone proposes another temporary patch. You push for ______, not another band-aid, and argue we should also pick ______ so the queue state survives restarts."
+      "cloze": "Architecture review of a flaky queue fix. Someone proposes another temporary patch. You push for ______, not another band-aid, and argue we should also pick ______ so the queue state survives restarts.",
+      "rewrite_prompt": "中式弱句（架构评审）：「不要再临时补丁了，我们要一个能长久的修复，还有能持久的存储。」→ 用 a durable fix / durable storage 改写。",
+      "rewrite_answer": "Push for a durable fix, not another band-aid. We should also pick durable storage so queue state survives restarts.",
+      "pitfalls": "*durable* ≠ 只是 *strong*；强调「经得起时间」，不是力气大；别用 *forever patch* / *long-time fix* 替代 *a durable fix*"
     },
     {
       "slug": "feasible",
@@ -91,8 +100,13 @@
       "use": "*more feasible under/within …*; *not feasible under …*; *a feasible option/timeline*",
       "avoid": "*feasible to do* 乱套；别把「可行」拼成 *can do*",
       "article": "",
-      "home_scene": "Standup: someone pushes a big-bang launch next Friday. Headcount is thin → a phased rollout is **more feasible under** our current bandwidth; a full cutover is **not feasible under** that constraint.",
-      "cloze": "Standup: someone pushes a big-bang launch next Friday. Headcount is thin → a phased rollout is ______ our current bandwidth; a full cutover is ______ that constraint."
+      "home_scene": "Daily standup. A teammate pushes a full big-bang launch next Friday to “get it over with.” You look at headcount and the open Sev-2 queue: a phased rollout is **more feasible under** our current bandwidth, and a single cutover is **not feasible under** that constraint. You propose 10% → 50% → 100% with a kill switch, and ask PM to confirm stakeholder messaging before anyone commits Friday.",
+      "cloze": "Daily standup. A teammate pushes a full big-bang launch next Friday. You look at headcount and the open Sev-2 queue: a phased rollout is ______ our current bandwidth, and a single cutover is ______ that constraint.",
+      "rewrite_prompt": "弱句：「这周五一次全上线不太行，人不够，还是分批吧。」→ 用 more feasible under/within … 或 not feasible under …。",
+      "rewrite_answer": "A phased rollout is more feasible under our current bandwidth; a full cutover is not feasible under that constraint.",
+      "pitfalls": "名词是 *feasibility*，不是 *feasibleness*；评估句式优先 *whether X is feasible*，少用中式 *X is can*",
+      "why_this_chunk": "more/not feasible under … binds practicality to constraints; stronger than bare possible/can do; viable is longer-term.",
+      "learning_face": "v2-2026-09-18"
     },
     {
       "slug": "handoff",
@@ -115,7 +129,10 @@
       "avoid": "*hand over notes* 乱套为唯一说法；别把「干净交接」拼成 *clean give*",
       "article": "*handoff packet*; *handoff between Bots*; *handoff rules*",
       "home_scene": "End of on-call day shift. Before you leave Slack, you write **handoff notes** the night person must read: open pages, mitigations tried, and who to page. Goal is a **clean handoff** — no tribal knowledge stuck in your head.",
-      "cloze": "End of on-call day shift. Before you leave Slack, you write ______ the night person must read: open pages, mitigations tried, and who to page. Goal is a ______ — no tribal knowledge stuck in your head."
+      "cloze": "End of on-call day shift. Before you leave Slack, you write ______ the night person must read: open pages, mitigations tried, and who to page. Goal is a ______ — no tribal knowledge stuck in your head.",
+      "rewrite_prompt": "中式弱句（值班结束）：「下班前写交接笔记，要做到干净交接。」→ 用 handoff notes / clean handoff 改写。",
+      "rewrite_answer": "Before you leave, write handoff notes the night person must read. Goal is a clean handoff — no tribal knowledge stuck in your head.",
+      "pitfalls": "名词常 *handoff*（连写）；动词常 *hand off*；*clean handoff* = 上下文齐全、对方能接着干；不是「礼貌地说再见」"
     },
     {
       "slug": "inspect",
@@ -138,7 +155,10 @@
       "avoid": "*check carefully the logs* 语序别扭；别把「排查」一律写成 *look look*",
       "article": "*path to inspect*; *inspect next*",
       "home_scene": "Pager for a p99 latency spike. Before changing code, you **inspect the logs** and traces and **inspect** the hot path **for** a lock or N+1 query. Fix comes after evidence, not after a guess.",
-      "cloze": "Pager for a p99 latency spike. Before changing code, you ______ and traces and ______ the hot path ______ a lock or N+1 query. Fix comes after evidence, not after a guess."
+      "cloze": "Pager for a p99 latency spike. Before changing code, you ______ and traces and ______ the hot path ______ a lock or N+1 query. Fix comes after evidence, not after a guess.",
+      "rewrite_prompt": "中式弱句（p99 告警）：「改代码前先仔细看日志，再查热路径有没有锁或 N+1。」→ 用 inspect the logs / inspect … for … 改写。",
+      "rewrite_answer": "Before changing code, inspect the logs and traces, and inspect the hot path for a lock or N+1 query.",
+      "pitfalls": "*inspect X for Y* = 在 X 里找 Y；别只说 *check check*；比 *look at* 更强调「有目的地审看证据」"
     },
     {
       "slug": "itinerary",
@@ -160,8 +180,11 @@
       "use": "*draft/confirm/lock the itinerary*; *any change to the … itinerary*",
       "avoid": "用 *itinerary* 当 *agenda*；别堆 *travel schedule plan*",
       "article": "",
-      "home_scene": "Email: please **draft/confirm** **the itinerary** for next week’s onsite; **any change to the** VIP **itinerary** must clear security before we **lock the itinerary**.",
-      "cloze": "Email: please ______ for next week’s onsite; ______ must clear security before we ______."
+      "home_scene": "Email: please **draft/confirm** **the itinerary** for next week’s onsite; **any change to the** VIP **itinerary** must clear security before we **lock the itinerary**. Ops won’t book cars until the itinerary is locked.",
+      "cloze": "Email: please ______ for next week’s onsite; ______ must clear security before we ______. Ops won’t book cars until the itinerary is locked.",
+      "rewrite_prompt": "中式弱句（onsite 邮件）：「请起草确认下周行程；任何行程改动要过安保，然后锁定行程。」→ 用 draft/confirm/lock the itinerary 改写。",
+      "rewrite_answer": "Please draft and confirm the itinerary for next week’s onsite; any change to the VIP itinerary must clear security before we lock the itinerary.",
+      "pitfalls": "用 *itinerary* 当 *agenda*；别堆 *travel schedule plan*"
     },
     {
       "slug": "magnify",
@@ -184,7 +207,10 @@
       "avoid": "*make risk bigger* 当唯一说法；别把「放大风险」拼成 *big the risk*",
       "article": "*magnifies both X and Y*",
       "home_scene": "Risk review before launch. A tiny edge-case bug looks minor in isolation, but on a hot path it would **magnify the risk**. Left alone, it could **magnify** a single timeout **into** a full-region outage.",
-      "cloze": "Risk review before launch. A tiny edge-case bug looks minor in isolation, but on a hot path it would ______. Left alone, it could ______ a single timeout ______ a full-region outage."
+      "cloze": "Risk review before launch. A tiny edge-case bug looks minor in isolation, but on a hot path it would ______. Left alone, it could ______ a single timeout ______ a full-region outage.",
+      "rewrite_prompt": "中式弱句（上线风险评审）：「这个小 bug 在热路径会把风险放大，一次超时可能放大成全区故障。」→ 用 magnify the risk / magnify … into … 改写。",
+      "rewrite_answer": "On a hot path that edge-case would magnify the risk. Left alone, it could magnify a single timeout into a full-region outage.",
+      "pitfalls": "*magnify A into B* = 把 A 放大成 B；别写成 *magnify A to become B* 冗长版当唯一块；职场风险语境优先 *magnify the risk*，不是字面「用放大镜看」"
     },
     {
       "slug": "nuance",
@@ -207,7 +233,10 @@
       "avoid": "任何小差别都叫 *nuance*；别造 *nuanceful*",
       "article": "",
       "home_scene": "FAQ review: the draft misses **a nuance between** “recommend” **and** “require.” I agree on the conclusion, **with one nuance:** timing still needs Legal.",
-      "cloze": "FAQ review: the draft misses ______ “recommend” and “require.” I agree on the conclusion, ______: timing still needs Legal."
+      "cloze": "FAQ review: the draft misses ______ “recommend” and “require.” I agree on the conclusion, ______: timing still needs Legal.",
+      "rewrite_prompt": "中式弱句（FAQ 评审）：「草稿漏了 recommend 和 require 之间的细微差别；结论我同意，但有一个 nuance：时机还要过 Legal。」→ 用目标语块改写。",
+      "rewrite_answer": "The draft misses a nuance between “recommend” and “require.” I agree on the conclusion, with one nuance: timing still needs Legal.",
+      "pitfalls": "任何小差别都叫 *nuance*；别造 *nuanceful*"
     },
     {
       "slug": "recipe",
@@ -230,7 +259,10 @@
       "avoid": "字面「做饭」硬套；别混 *receipt*",
       "article": "",
       "home_scene": "PR on the runbook: keep this as a **step-by-step recipe** on-call can repeat. Vague ownership + tight deadlines is **a recipe for** failure.",
-      "cloze": "PR on the runbook: keep this as a ______ on-call can repeat. Vague ownership + tight deadlines is ______ failure."
+      "cloze": "PR on the runbook: keep this as a ______ on-call can repeat. Vague ownership + tight deadlines is ______ failure.",
+      "rewrite_prompt": "中式弱句（runbook PR）：「把 runbook 写成值班能照着重复的逐步配方；权责不清+截止日期紧就是事故配方。」→ 用 step-by-step recipe / a recipe for … 改写。",
+      "rewrite_answer": "Keep this as a step-by-step recipe on-call can repeat. Vague ownership plus tight deadlines is a recipe for an incident.",
+      "pitfalls": "字面「做饭」硬套；别混 *receipt*"
     },
     {
       "slug": "recurring",
@@ -253,7 +285,10 @@
       "avoid": "*repeat meeting*；*again and again meeting*；别把「周会」拼成 *every-week meeting* 当正式写法",
       "article": "*recurring routines*; *recurring job*",
       "home_scene": "Scheduling the eng sync. Boss asks if this is one-off or every week. You say we should book **a recurring meeting**, not a one-off invite each Monday. In the same thread someone notes the flaky deploy alert is a **recurring issue**, so the sync needs a standing agenda slot.",
-      "cloze": "Scheduling the eng sync. Boss asks if this is one-off or every week. You say we should book ______, not a one-off invite each Monday. In the same thread someone notes the flaky deploy alert is a ______, so the sync needs a standing agenda slot."
+      "cloze": "Scheduling the eng sync. Boss asks if this is one-off or every week. You say we should book ______, not a one-off invite each Monday. In the same thread someone notes the flaky deploy alert is a ______, so the sync needs a standing agenda slot.",
+      "rewrite_prompt": "中式弱句（约会）：「别每周单独发邀请，订一个周期性会议；那个 flaky alert 也是 recurring issue。」→ 用 a recurring meeting / recurring issue 改写。",
+      "rewrite_answer": "Book a recurring meeting, not a one-off invite each Monday. The flaky deploy alert is a recurring issue, so give it a standing agenda slot.",
+      "pitfalls": "日历语境优先 *a recurring meeting*；财务另有 *recurring revenue*，别在同一句里硬混；别写 *repeat meeting* / *again meeting*"
     },
     {
       "slug": "retention",
@@ -276,7 +311,10 @@
       "avoid": "*keep rate*；*retain rate*；别把「用户留存」拼成 *user keep*；勿与 *data retention policy*（数据保留策略）混用",
       "article": "(no hit in this post’s article body)",
       "home_scene": "Monthly growth review. Churn rose last month, and the PM asks what actually keeps paying users. You put **user retention** on the slide first, then walk the room through the **retention rate** by cohort so we debate the product policy, not vanity signups.",
-      "cloze": "Monthly growth review. Churn rose last month, and the PM asks what actually keeps paying users. You put ______ on the slide first, then walk the room through the ______ by cohort so we debate the product policy, not vanity signups."
+      "cloze": "Monthly growth review. Churn rose last month, and the PM asks what actually keeps paying users. You put ______ on the slide first, then walk the room through the ______ by cohort so we debate the product policy, not vanity signups.",
+      "rewrite_prompt": "中式弱句（增长会）：「先把用户留存放到 slide，再按 cohort 看留存率。」→ 用 user retention / retention rate 改写。",
+      "rewrite_answer": "Put user retention on the slide first, then walk through the retention rate by cohort so we debate product policy, not vanity signups.",
+      "pitfalls": "别和 *data retention policy*（合规里的数据保留期限）混淆；growth 语境优先说 *user retention* / *retention rate*；避免中式 *keep rate* / *user keep*"
     },
     {
       "slug": "rollout",
@@ -299,7 +337,10 @@
       "avoid": "*roll out plan* 当名词时漏连写；别把「分批上线」拼成 *batch online*；勿与单次 *cutover* 混为一谈",
       "article": "*the same rollout*",
       "home_scene": "Launch doc review for a new feature. You refuse a single cutover and define percent gates by region. The **rollout plan** calls for a **phased rollout**: 5% → 25% → 100%, with kill switches at each gate.",
-      "cloze": "Launch doc review for a new feature. You refuse a single cutover and define percent gates by region. The ______ calls for a ______: 5% → 25% → 100%, with kill switches at each gate."
+      "cloze": "Launch doc review for a new feature. You refuse a single cutover and define percent gates by region. The ______ calls for a ______: 5% → 25% → 100%, with kill switches at each gate.",
+      "rewrite_prompt": "中式弱句（launch doc）：「拒绝一次切全量；rollout plan 要分阶段：5%→25%→100%。」→ 用 rollout plan / phased rollout 改写。",
+      "rewrite_answer": "The rollout plan calls for a phased rollout: 5% → 25% → 100%, with kill switches at each gate.",
+      "pitfalls": "名词常用 *rollout*（连写）；动词常 *roll out*；*phased rollout* ≠ 一次 *big-bang cutover*"
     },
     {
       "slug": "spectacle",
@@ -322,7 +363,10 @@
       "avoid": "*make a show of outage* 乱套；别把「别闹大」拼成 *don’t big show*",
       "article": "*proof, not spectacle*",
       "home_scene": "Incident war room. Someone wants a dramatic public post mid-outage. You warn: don’t **make a spectacle of** the outage while customers are still down — **avoid a public spectacle** until we have a clear status and a fix ETA.",
-      "cloze": "Incident war room. Someone wants a dramatic public post mid-outage. You warn: don’t ______ the outage while customers are still down — ______ until we have a clear status and a fix ETA."
+      "cloze": "Incident war room. Someone wants a dramatic public post mid-outage. You warn: don’t ______ the outage while customers are still down — ______ until we have a clear status and a fix ETA.",
+      "rewrite_prompt": "中式弱句（故障 war room）：「客户还挂着的时候别把故障闹成公开大场面。」→ 用 make a spectacle of / avoid a public spectacle 改写。",
+      "rewrite_answer": "Don’t make a spectacle of the outage while customers are still down — avoid a public spectacle until we have a clear status and a fix ETA.",
+      "pitfalls": "职场里常是否定用法：*avoid a public spectacle* / *don’t make a spectacle of X*；别和中性 *visibility* / *transparency* 混为一谈——透明不等于演戏"
     },
     {
       "slug": "stale",
@@ -345,7 +389,10 @@
       "avoid": "*old data* 当唯一说法；别把「过期分支」拼成 *expired branch*（更常说 stale）",
       "article": "",
       "home_scene": "PR review. CI is green but the branch is 40 commits behind main, so reviewers risk approving **stale data** in the preview. You ask for a rebase: this is **a stale branch** — refresh before we merge.",
-      "cloze": "PR review. CI is green but the branch is 40 commits behind main, so reviewers risk approving ______ in the preview. You ask for a rebase: this is ______ — refresh before we merge."
+      "cloze": "PR review. CI is green but the branch is 40 commits behind main, so reviewers risk approving ______ in the preview. You ask for a rebase: this is ______ — refresh before we merge.",
+      "rewrite_prompt": "中式弱句（PR 评审）：「分支落后 40 个 commit，预览里可能是过期数据；这是个 stale branch，先 rebase。」→ 用 stale data / a stale branch 改写。",
+      "rewrite_answer": "Reviewers risk approving stale data in the preview. This is a stale branch — rebase and refresh before we merge.",
+      "pitfalls": "*old data* 当唯一说法；别把「过期分支」拼成 *expired branch*（更常说 stale）"
     },
     {
       "slug": "steer",
@@ -367,8 +414,13 @@
       "use": "*steer … back to …*; *steer … toward/away from*; *steer clear of …*",
       "avoid": "自造 *pull the topic return*；别字面「开方向盘」",
       "article": "",
-      "home_scene": "Review drifts into UI pixels. You: can we **steer** the discussion **back to** the decision criteria? And please **steer clear of** competitor gossip.",
-      "cloze": "Review drifts into UI pixels. You: can we ______ the discussion ______ the decision criteria? And please ______ competitor gossip."
+      "home_scene": "Design/planning review. The thread slides into button padding and a competitor’s marketing site. You interrupt once: “Can we **steer** this **back to** the decision criteria we wrote on the doc?” Two minutes later someone starts rumor-chat about headcount; you add, “Please **steer clear of** gossip — we still need an owner for the acceptance checks.” The room returns to the checklist.",
+      "cloze": "Design/planning review drifts into pixels and competitor gossip. You: can we ______ this ______ the decision criteria? And please ______ gossip — we still need an owner for the acceptance checks.",
+      "rewrite_prompt": "弱句：「别扯皮了，回到决策标准，竞品八卦别聊。」→ 用 steer … back to … 和/或 steer clear of …。",
+      "rewrite_answer": "Can we steer the discussion back to the decision criteria? And please steer clear of competitor gossip.",
+      "pitfalls": "*steer clear of* 是短语，别拆成字面方向盘；*steering committee* = 指导委员会；过去式 *steered*，不是 *stear*",
+      "why_this_chunk": "steer … back to … = course-correct; steer clear of … = deliberately avoid; not bare guide/drive/avoid talk.",
+      "learning_face": "v2-2026-09-18"
     },
     {
       "slug": "superseded",
@@ -391,7 +443,10 @@
       "avoid": "*replaced already by* 堆砌；别拼 *superceded*（常见错拼少一个 s）",
       "article": "",
       "home_scene": "API docs review. The sidebar still links to the v1 design note as if it were current. You comment: **this doc is superseded** — point readers to v2. The v1 note was **superseded by** the GA contract and must move under Archive.",
-      "cloze": "API docs review. The sidebar still links to the v1 design note as if it were current. You comment: ______ — point readers to v2. The v1 note was ______ the GA contract and must move under Archive."
+      "cloze": "API docs review. The sidebar still links to the v1 design note as if it were current. You comment: ______ — point readers to v2. The v1 note was ______ the GA contract and must move under Archive.",
+      "rewrite_prompt": "中式弱句（API 文档）：「这篇 v1 设计说明已经不是现行标准了，被 GA 合同取代了。」→ 用 this doc is superseded / superseded by … 改写。",
+      "rewrite_answer": "This doc is superseded — point readers to v2. The v1 note was superseded by the GA contract and must move under Archive.",
+      "pitfalls": "*replaced already by* 堆砌；别拼 *superceded*（常见错拼少一个 s）"
     },
     {
       "slug": "supplemental",
@@ -414,7 +469,10 @@
       "avoid": "*add materials* 当标签；别把「补充材料」拼成 *extra stuff section* 当正式 RFC 用语",
       "article": "*supplemental training run*",
       "home_scene": "RFC review. Extra benchmarks and screenshots are useful but must not bury the decision. You move them under **supplemental materials** and add **a supplemental note** that they inform the choice but are not the decision itself.",
-      "cloze": "RFC review. Extra benchmarks and screenshots are useful but must not bury the decision. You move them under ______ and add ______ that they inform the choice but are not the decision itself."
+      "cloze": "RFC review. Extra benchmarks and screenshots are useful but must not bury the decision. You move them under ______ and add ______ that they inform the choice but are not the decision itself.",
+      "rewrite_prompt": "中式弱句（RFC）：「额外基准和截图别淹没决策，放到补充材料，并加一条补充说明。」→ 用 supplemental materials / a supplemental note 改写。",
+      "rewrite_answer": "Move the benchmarks under supplemental materials and add a supplemental note that they inform the choice but are not the decision itself.",
+      "pitfalls": "*supplemental* = 额外、非核心；别当成 *essential* / *core*；RFC 里用 *supplemental materials* 比 *extra stuff* 更干净"
     },
     {
       "slug": "tentative",
@@ -436,8 +494,13 @@
       "use": "*a tentative timeline*; *mark … as tentative*; *tentative hold/conclusion*",
       "avoid": "日历里用 *busy* 表示「暂定」；别混 *attentive*",
       "article": "",
-      "home_scene": "Wed Q3 roadmap sync with boss. He wants a launch date. Legal not signed off → you offer **a tentative timeline**, not a hard commit, and ask to **mark** the invite **as tentative** until Legal signs off.",
-      "cloze": "Wed Q3 roadmap sync with boss. He wants a launch date. Legal not signed off → you can only give ______, not a hard commit. Mark the invite ______ until Legal signs off."
+      "home_scene": "Wednesday Q3 roadmap sync. Your boss wants a hard launch date for the deck. Legal still has not signed off, so a firm commit would be dishonest. You say you can only share **a tentative timeline** for planning, and you ask the EA to **mark** the follow-up invite **as tentative** until Legal clears. In Slack afterward you write: “Dates are directional — please treat them as changeable.”",
+      "cloze": "Wednesday Q3 roadmap sync. Your boss wants a hard launch date for the deck. Legal still has not signed off. You say you can only share ______ for planning, and you ask the EA to ______ the follow-up invite ______ until Legal clears.",
+      "rewrite_prompt": "弱句：「上线时间还没定死，先随便写个日期，日历先占上。」→ 用 a tentative timeline / mark … as tentative 写可发英文。",
+      "rewrite_answer": "I can only offer a tentative timeline, not a hard commit. Please mark the invite as tentative until Legal signs off.",
+      "pitfalls": "错拼少见，但副词别漏：*tentatively*；日历 *tentative* ≈ 待定接受，≠ *busy*；名词感表达优先用 chunk，不要只丢光杆 *tentative*",
+      "why_this_chunk": "a tentative timeline = changeable schedule (not merely possible); mark … as tentative = calendar state (not busy).",
+      "learning_face": "v2-2026-09-18"
     }
   ]
 }

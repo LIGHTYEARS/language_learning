@@ -21,16 +21,23 @@
 - AVOID: …（中式逐词拼）
 
 ## Home scene (frozen)
-(3–6 sentences; same people/stakes/docs every review; embed target chunks — not swapable one-off examples)
+(4–6 sentences; same people/stakes/docs every review; **bold** target chunks)
 
 ## Cloze (same home scene)
 (blank the target chunks as ______)
 
-## One-liner
-IPA · etymology · gloss · key chunks
+## Why this chunk
+(1–2 sentences: why not the near-synonym in this scene)
 
-## Rewrite prompt (optional)
-Weak line → must use a target chunk
+## Rewrite prompt
+Weak CN/EN line → must use a target chunk; sendable at work
+
+## Cue-fade (review)
+1. CN reopen — who / goal / risk  
+2. Title cue only → produce sentence with target chunk  
+3. Why this chunk  
+4. Same-scene Slack/email upgrade  
+5. Optional one transfer (only after bare recall stable)
 
 ## Pitfalls
 - …
